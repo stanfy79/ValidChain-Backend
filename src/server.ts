@@ -13,7 +13,7 @@ async function startServer() {
   await app.register(cors, {
     origin: [
       "http://localhost:5173",
-      "https://senethi.vercel.app",
+      "https://validchain.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -65,7 +65,7 @@ async function startServer() {
 
   setInterval(
     () => {
-      fetch("https://api-norelix.onrender.com/api/health", { method: "GET" }).catch(
+      fetch("https://api-validchain.onrender.com/api/health", { method: "GET" }).catch(
         (err) => console.error("Health check ping failed:", err.message)
       );
     },
