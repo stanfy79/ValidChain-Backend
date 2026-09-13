@@ -52,8 +52,8 @@ export const AnalyticsService = async (wallet: string) => {
 
   try {
     const [
-      mainnetResponse, 
-      // testnetResponse
+      // mainnetResponse, 
+      testnetResponse
     ] = await Promise.all([
       axios.post(
         `${process.env.ALCHEMY_PROVIDER_URL}/${process.env.ALCHEMY_API_KEY}`,
@@ -63,24 +63,24 @@ export const AnalyticsService = async (wallet: string) => {
         },
       ),
 
-      // axios.post(
-      //   `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-      //   createRequest("toAddress"),
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //   },
-      // ),
+      axios.post(
+        `${process.env.ALCHEMY_PROVIDER_URL}/${process.env.ALCHEMY_API_KEY}`,
+        createRequest("toAddress"),
+        {
+          headers: { "Content-Type": "application/json" },
+        },
+      ),
     ]);
 
-    const mainnet = mainnetResponse.data?.result?.transfers || [];
-    // const testnet = testnetResponse.data?.result?.transfers || [];
+    // const mainnet = mainnetResponse.data?.result?.transfers || [];
+    const testnet = testnetResponse.data?.result?.transfers || [];
 
     // Combine and remove duplicates
     const uniqueTransactions = Array.from(
       new Map(
         [
-          ...mainnet, 
-          // ...testnet
+          // ...mainnet,
+          ...testnet
         ].map((tx) => [`${tx.hash}-${tx.uniqueId}`, tx]),
       ).values(),
     );
